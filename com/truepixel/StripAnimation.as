@@ -11,9 +11,12 @@ package com.truepixel{
 	import flash.events.TimerEvent;
 	import fl.transitions.easing.Strong;
 	import flash.sampler.NewObjectSample;
+	import com.truepixel.Events.AnimationEvent;
 	
 	public class StripAnimation extends MovieClip{
-
+		
+		public var animationName:String = "StripAnimation";
+		
 		private var mcWidth:Number;
 		private var mcHeight:Number;
 		private var mcX:Number;
@@ -27,13 +30,15 @@ package com.truepixel{
 		
 		private var maskHolder:MovieClip = new MovieClip();
 		private var mcToAnim:MovieClip = new MovieClip();
-		
-		private var myTweenY:Tween;
-		
+
 		private var timerOne:Timer;
 		private var timerTwo:Timer;
-
-		public function StripAnimation(mc:MovieClip, parts:int) {
+		
+		private var myTweenY:Tween;
+		private var _parentClass:FXCore;
+		
+		public function StripAnimation(mc:MovieClip, parts:int, parentClass:FXCore) {
+			_parentClass = parentClass;
 			mcWidth = mc.width;
 			mcHeight = mc.height;
 			mcX = mc.x;
@@ -116,10 +121,21 @@ package com.truepixel{
 			if (currentShape2 !== strips){
 				var shapeToAnim:Shape = stripsArray2[currentShape2];
 				var myTweenX:Tween = new Tween(shapeToAnim, "y", Strong.easeOut, -mcHeight, 0, 1, true);
+				
 				currentShape2 = currentShape2 + 1;
 			} else {
-				var _fxCore:FXCore = new FXCore();
-				_fxCore.killProcess(this);
+				// Help Garbage Collector To Clean Unused Objects
+				timerOne = null;
+				timerTwo = null;
+				maskHolder = null;
+				mcToAnim = null;
+				stripsArray = null;
+				stripsArray2 = null;
+				myTweenY = null;
+				_parentClass.callEndEvent();
+				_parentClass.killProcess(this);
+				_parentClass = null;
+				
 			}
 		}
 
