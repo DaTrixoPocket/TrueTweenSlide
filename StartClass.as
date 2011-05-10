@@ -21,7 +21,6 @@
 		
 			_tweenManager.addEventListener(AnimationEvent.END, doSomething, false, 0, true);
 			_tweenManager.doStripAnimation(_img, 8); 
-			// no way :/
 			
 			var simpleButton:SimpleButton = new SimpleButton();
 			addChild(simpleButton);
@@ -29,7 +28,7 @@
 		
 		private function doSomething(event:AnimationEvent):void
 		{
-				trace("Śmiga kufka!");
+				trace("Worked");
 		}
 
 	}
