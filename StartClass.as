@@ -20,7 +20,7 @@
 			_img.cacheAsBitmap = true;
 		
 			_tweenManager.addEventListener(AnimationEvent.END, doSomething, false, 0, true);
-			_tweenManager.doStripAnimation(_img, 8); 
+			_tweenManager.doStripAnimation(_img, "supaSlide", 8); 
 			
 			var simpleButton:SimpleButton = new SimpleButton();
 			addChild(simpleButton);
