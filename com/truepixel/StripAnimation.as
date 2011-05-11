@@ -16,7 +16,7 @@ package com.truepixel.Animations{
 	
 	public class StripAnimation extends MovieClip{
 		
-		public var animationName:String = "StripAnimation";
+		public var animationName:String = "StripAnimation2";
 		public var urlPath:String = "";
 		
 		private var mcWidth:Number;
