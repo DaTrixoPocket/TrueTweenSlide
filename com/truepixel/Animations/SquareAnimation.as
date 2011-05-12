@@ -14,7 +14,7 @@ package com.truepixel.Animations{
 	import com.truepixel.FXCore;
 	
 	public class SquareAnimation extends Animation{
-		private var strips:Number;
+		private var strips:Number = 8;
 		private var stripsArray:Array = new Array();
 		private var stripsArray2:Array = new Array();
 		private var currentShape:Number = 0;
@@ -29,6 +29,7 @@ package com.truepixel.Animations{
 		public function SquareAnimation(mc:MovieClip, sName:String, parentClass:FXCore) {
 			super(mc, sName, parentClass)
 			testParent();
+			drawStrips();
 		}
 		
 		private function testParent():void{
@@ -71,7 +72,7 @@ package com.truepixel.Animations{
 				stripsArray2.push(maskingShape2);
 			}
 			
-			doAnimation();
+			 doAnimation();
 		}
 		
 		private function doAnimation():void{
@@ -113,7 +114,7 @@ package com.truepixel.Animations{
 				stripsArray = null;
 				stripsArray2 = null;
 				myTweenY = null;
-				_core.callEndEvent();
+				_core.callEndEvent(animationName);
 				_core.killProcess(this);
 				_core = null;
 			}

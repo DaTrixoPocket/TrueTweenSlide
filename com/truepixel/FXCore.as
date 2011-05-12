@@ -22,13 +22,15 @@ package com.truepixel  {
 			var _squareAnimation = new SquareAnimation(animMC, slideName, this);
 		}
 		
-		public function callStartEvent():void{
+		public function callStartEvent(animName:String):void{
 			var startEvent:AnimationEvent = new AnimationEvent("onStart", true);
+			startEvent.animationName = animName;
 			dispatchEvent(startEvent);
 		}
 		
-		public function callEndEvent():void{
+		public function callEndEvent(animName:String):void{
 			var endEvent:AnimationEvent = new AnimationEvent("onEnd", true);
+			endEvent.animationName = animName;
 			dispatchEvent(endEvent);
 		}
 		

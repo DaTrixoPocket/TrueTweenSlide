@@ -110,7 +110,7 @@ package com.truepixel.Animations{
 				stripsArray = null;
 				stripsArray2 = null;
 				myTweenY = null;
-				_core.callEndEvent();
+				_core.callEndEvent(animationName);
 				_core.killProcess(this);
 				_core = null;
 			}
