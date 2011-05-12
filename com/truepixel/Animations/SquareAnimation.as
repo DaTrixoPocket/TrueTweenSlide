@@ -12,108 +12,100 @@ package com.truepixel.Animations{
 	import fl.transitions.easing.Strong;
 	import com.truepixel.Events.AnimationEvent;
 	import com.truepixel.FXCore;
+	import fl.transitions.easing.None;
 	
 	public class SquareAnimation extends Animation{
 		private var strips:Number = 8;
-		private var stripsArray:Array = new Array();
+		private var stripsArray1:Array = new Array();
 		private var stripsArray2:Array = new Array();
-		private var currentShape:Number = 0;
+		private var stripsArray3:Array = new Array();
+		private var stripsArray4:Array = new Array();
+		private var currentShape1:Number = 0;
 		private var currentShape2:Number = 0;
+		private var currentShape3:Number = 0;
+		private var currentShape4:Number = 0;
 		
-		private var timerOne:Timer;
-		private var timerTwo:Timer;
+		private var timer1:Timer;
+		private var timer2:Timer;
+		private var timer3:Timer;
+		private var timer4:Timer;
 		
 		private var myTweenY:Tween;
+		private var stripPos:Number;
+		private var totalRects:int;
 
 		
 		public function SquareAnimation(mc:MovieClip, sName:String, parentClass:FXCore) {
 			super(mc, sName, parentClass)
-			testParent();
 			drawStrips();
-		}
-		
-		private function testParent():void{
-			trace(animationName + "  ____   " + mcHeight );
-		}
+		}	
 		
 		private function drawStrips():void{
-			var stripPos:Number;
+			
 			stripPos = mcWidth / strips;
+			var cols:int = Math.round(mcHeight / stripPos);
+			totalRects = cols * strips;
+			trace(totalRects);
 			
-			for (var i:int = 0; i < strips; i++){
-				var maskingShape:Shape = new Shape();
-				maskingShape.cacheAsBitmap = true;
+			for (var b:int = 0; b < cols; b++){
+				for (var i:int = 0; i < strips; i++){
+					var maskingShape:Shape = new Shape();
+					maskingShape.cacheAsBitmap = true;
+					
+					maskHolder.addChild(maskingShape);				
+					maskingShape.graphics.lineStyle();
+					maskingShape.graphics.beginFill(0xf28c07,1);
+					maskingShape.graphics.drawRect(0,0,1,1);
+					maskingShape.graphics.endFill();
+					maskingShape.x = i * stripPos;
+					maskingShape.y = b * stripPos;
+					maskingShape.alpha = 1;
+					
+					if (b == 0){
+						stripsArray1.push(maskingShape);
+					} else if (b == 1){
+						stripsArray2.push(maskingShape);
+					} else if (b == 2){
+						stripsArray3.push(maskingShape);
+					} else if (b == 3){
+						stripsArray4.push(maskingShape);
+					}
+					
+					
+				}
 				
-				maskHolder.addChild(maskingShape);				
-				maskingShape.graphics.lineStyle();
-				maskingShape.graphics.beginFill(0xf28c07,1);
-				maskingShape.graphics.drawRect(0,0,stripPos,mcHeight);
-				maskingShape.graphics.endFill();
-				maskingShape.x = i * stripPos;
-				maskingShape.y = -mcHeight;
-				maskingShape.alpha = 0.5;
-				
-				stripsArray.push(maskingShape);
 			}
-			
-			for (var q:int = 0; q < strips; q++){
-				var maskingShape2:Shape = new Shape();
-				maskingShape2.cacheAsBitmap = true;
-				
-				maskHolder.addChild(maskingShape2);				
-				maskingShape2.graphics.lineStyle();
-				maskingShape2.graphics.beginFill(0xf28c07,1);
-				maskingShape2.graphics.drawRect(0,0,stripPos,mcHeight);
-				maskingShape2.graphics.endFill();
-				maskingShape2.x = q * stripPos;
-				maskingShape2.y = -mcHeight;
-				maskingShape2.alpha = 1;
-				
-				stripsArray2.push(maskingShape2);
-			}
-			
-			 doAnimation();
+			trace(stripsArray2.length);
+			  doAnimation();
 		}
 		
 		private function doAnimation():void{
-			timerOne = new Timer(140,strips);
-			timerOne.addEventListener(TimerEvent.TIMER, doNextTween);
-
-			timerTwo = new Timer(220,strips);
-			timerTwo.addEventListener(TimerEvent.TIMER, doNextTween2);
+			timer4 = new Timer(220,strips);
+			timer4.addEventListener(TimerEvent.TIMER, doNextTween4);
 			
-			doNextTween();
-			doNextTween2();
+
+			doNextTween4();
 		}
 		
-		private function doNextTween(e:Event = null):void{
-			if (currentShape == 0){
-				timerOne.start();
-			}
-			if (currentShape !== strips){
-				var shapeToAnim:Shape = stripsArray[currentShape];
-				var myTweenX:Tween = new Tween(shapeToAnim, "y", Strong.easeOut, -mcHeight, 0, 1, true);
-				currentShape = currentShape + 1;
-			} 
-		}
+
 		
-		private function doNextTween2(e:Event = null):void{
-			if (currentShape2 == 0){
-				timerTwo.start();
+		private function doNextTween4(e:Event = null):void{
+			if (currentShape4 == 0){
+				timer4.start();
 			}
-			if (currentShape2 !== strips){
-				var shapeToAnim:Shape = stripsArray2[currentShape2];
-				var myTweenX:Tween = new Tween(shapeToAnim, "y", Strong.easeOut, -mcHeight, 0, 1, true);
-				currentShape2 = currentShape2 + 1;
+			if (currentShape4 !== strips){
+				var shapeToAnim:Shape = stripsArray4[currentShape4];
+				var myTweenX:Tween = new Tween(shapeToAnim, "scaleX", None.easeNone, 45, stripPos + 6, 0.3, true);
+				var myTweenY:Tween = new Tween(shapeToAnim, "scaleY", None.easeNone, -40, stripPos + 6, 0.3, true);
+				currentShape4 = currentShape4 + 1;
+				trace(currentShape4);
 			} else {
 				// Help Garbage Collector To Clean Unused Objects
-				timerOne = null;
-				timerTwo = null;
-				maskHolder = null;
-				mcToAnim = null;
-				stripsArray = null;
+				timer1 = null;
+				timer2 = null;
+				stripsArray1 = null;
 				stripsArray2 = null;
-				myTweenY = null;
+
 				_core.callEndEvent(animationName);
 				_core.killProcess(this);
 				_core = null;
