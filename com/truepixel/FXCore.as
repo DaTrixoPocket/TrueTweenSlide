@@ -16,11 +16,10 @@ package com.truepixel  {
 		
 		public function doStripAnimation(animMC:MovieClip, slideName:String, strips:Number):void{
 			var _stripAnimation:StripAnimation = new StripAnimation(animMC, strips, slideName, this);
-			trace(_stripAnimation);
 		}
 		
-		public function doCircleAnimation(animMC:MovieClip):void{
-			// var _circleAnimation = new CircleAnimation(animMC);
+		public function doSquareAnimation(animMC:MovieClip, slideName:String):void{
+			var _squareAnimation = new SquareAnimation(animMC, slideName, this);
 		}
 		
 		public function callStartEvent():void{

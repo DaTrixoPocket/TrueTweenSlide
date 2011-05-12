@@ -11,11 +11,13 @@
 	public class StartClass extends MovieClip{
 
 		private var _tweenManager:FXCore = new FXCore();
+		
+		public var _img:exampleImage;
 
 		public function StartClass() {
 	
 			
-			var _img:exampleImage = new exampleImage();
+			_img = new exampleImage();
 			addChild(_img);
 			_img.cacheAsBitmap = true;
 		
@@ -28,7 +30,8 @@
 		
 		private function doSomething(event:AnimationEvent):void
 		{
-				trace("Worked");
+				trace("========================================" + _img);
+				_tweenManager.doSquareAnimation(_img, "supaSlide"); 
 		}
 
 	}

@@ -14,50 +14,22 @@ package com.truepixel.Animations{
 	import com.truepixel.Events.AnimationEvent;
 	import com.truepixel.FXCore;
 	
-	public class StripAnimation extends MovieClip{
-		
-		public var animationName:String = "StripAnimation";
-		public var urlPath:String = "";
-		
-		private var mcWidth:Number;
-		private var mcHeight:Number;
-		private var mcX:Number;
-		private var mcY:Number;
-		
+	public class StripAnimation extends Animation{
 		private var strips:Number;
 		private var stripsArray:Array = new Array();
 		private var stripsArray2:Array = new Array();
 		private var currentShape:Number = 0;
 		private var currentShape2:Number = 0;
-		
-		private var maskHolder:MovieClip = new MovieClip();
-		private var mcToAnim:MovieClip = new MovieClip();
 
 		private var timerOne:Timer;
 		private var timerTwo:Timer;
 		
 		private var myTweenY:Tween;
-		private var _parentClass:FXCore;
 		
 		public function StripAnimation(mc:MovieClip, parts:int, sName:String, parentClass:FXCore) {
-			_parentClass = parentClass;
-			animationName = sName;
-			mcWidth = mc.width;
-			mcHeight = mc.height;
-			mcX = mc.x;
-			mcY = mc.y;
-			mcToAnim = mc;
-			strips = parts;
-			
-			mcToAnim.addChild(maskHolder);
-			mcToAnim.mask = maskHolder;
-			
+			super(mc, sName, parentClass);
+			strips = parts;	
 			drawStrips();
-			maskHolder.cacheAsBitmap = true;
-		}
-		
-		public function addUrl(passedUrl:String):void{
-			urlPath = passedUrl;
 		}
 		
 		private function drawStrips():void{
@@ -138,9 +110,9 @@ package com.truepixel.Animations{
 				stripsArray = null;
 				stripsArray2 = null;
 				myTweenY = null;
-				_parentClass.callEndEvent();
-				_parentClass.killProcess(this);
-				_parentClass = null;
+				_core.callEndEvent();
+				_core.killProcess(this);
+				_core = null;
 			}
 		}
 

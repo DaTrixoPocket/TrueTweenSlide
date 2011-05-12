@@ -2,7 +2,7 @@
 // Author: Dariusz Rusin // truepixel.pl
 //
 
-package com.truepixel{
+package com.truepixel.Animations{
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import fl.transitions.Tween;
@@ -10,53 +10,29 @@ package com.truepixel{
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import fl.transitions.easing.Strong;
-	import flash.sampler.NewObjectSample;
 	import com.truepixel.Events.AnimationEvent;
+	import com.truepixel.FXCore;
 	
-	public class SquareAnimation extends MovieClip{
-		
-		public var animationName:String = "StripAnimation";
-		public var urlPath:String = "";
-		
-		private var mcWidth:Number;
-		private var mcHeight:Number;
-		private var mcX:Number;
-		private var mcY:Number;
-		
+	public class SquareAnimation extends Animation{
 		private var strips:Number;
 		private var stripsArray:Array = new Array();
 		private var stripsArray2:Array = new Array();
 		private var currentShape:Number = 0;
 		private var currentShape2:Number = 0;
 		
-		private var maskHolder:MovieClip = new MovieClip();
-		private var mcToAnim:MovieClip = new MovieClip();
-
 		private var timerOne:Timer;
 		private var timerTwo:Timer;
 		
 		private var myTweenY:Tween;
-		private var _parentClass:FXCore;
+
 		
-		public function SquareAnimation(mc:MovieClip, parts:int, sName:String, parentClass:FXCore) {
-			_parentClass = parentClass;
-			animationName = sName;
-			mcWidth = mc.width;
-			mcHeight = mc.height;
-			mcX = mc.x;
-			mcY = mc.y;
-			mcToAnim = mc;
-			strips = parts;
-			
-			mcToAnim.addChild(maskHolder);
-			mcToAnim.mask = maskHolder;
-			
-			drawStrips();
-			maskHolder.cacheAsBitmap = true;
+		public function SquareAnimation(mc:MovieClip, sName:String, parentClass:FXCore) {
+			super(mc, sName, parentClass)
+			testParent();
 		}
 		
-		public function addUrl(passedUrl:String):void{
-			urlPath = passedUrl;
+		private function testParent():void{
+			trace(animationName + "  ____   " + mcHeight );
 		}
 		
 		private function drawStrips():void{
@@ -137,9 +113,9 @@ package com.truepixel{
 				stripsArray = null;
 				stripsArray2 = null;
 				myTweenY = null;
-				_parentClass.callEndEvent();
-				_parentClass.killProcess(this);
-				_parentClass = null;
+				_core.callEndEvent();
+				_core.killProcess(this);
+				_core = null;
 			}
 		}
 
